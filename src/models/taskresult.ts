@@ -29,4 +29,9 @@ class TaskResultBase{
 
 export default class TaskResult<T> extends TaskResultBase{
   public data: T;
+
+  constructor(){
+    super()
+    this.data = null;
+  }
 }
