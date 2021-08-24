@@ -1,0 +1,40 @@
+---
+root: true
+
+extends:
+  - react-app
+
+plugins:
+  - react
+  - react-hooks
+
+env:
+  es6: true
+  browser: true
+
+parserOptions:
+  ecmaVersion: 11
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+
+settings:
+  import/resolver:
+    node:
+      paths: [./src]
+      extensions: [.ts, .tsx]
+
+rules:
+  semi: [error, never]
+  quotes: [error, single]
+  padded-blocks: "off"
+  react/no-unknown-property: error
+  react-hooks/rules-of-hooks: error
+  react/jsx-props-no-spreading: "off"
+  react/jsx-indent: [error, 2]
+  react/jsx-indent-props: [error, 2]
+  react/jsx-uses-react: "off"
+  react/react-in-jsx-scope": "off"
+  no-plusplus: ["error", { "allowForLoopAfterthoughts": true }]
+  no-param-reassign: [error, props: false]
+  import/newline-after-import: error
