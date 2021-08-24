@@ -1,6 +1,6 @@
 import { customerRouter } from "./customers.router"
-import {Express} from 'express'
+import * as express from 'express'
 
-export default (app: Express) => {
+export default (app: express.Applicationn) => {
   app.use('/api/v1/customers', customerRouter)
 }
