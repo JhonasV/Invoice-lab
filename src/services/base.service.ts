@@ -1,4 +1,4 @@
-import {TaskResult} from '../models/taskresult'
+import TaskResult from '../models/taskresult'
 
 export interface IBaseService<T> {
   GetAll(): Promise<TaskResult<T[]>>;

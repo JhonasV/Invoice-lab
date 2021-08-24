@@ -1,6 +1,6 @@
 import { IBaseService } from './base.service'
 import { Customers, CustomersModel, ICustomersAddModel } from '../models/customers'
-import { TaskResult } from '../models/taskresult'
+import TaskResult from '../models/taskresult'
 
 export class CustomersService implements IBaseService<CustomersModel> {
 
@@ -9,10 +9,9 @@ export class CustomersService implements IBaseService<CustomersModel> {
     try {
       const customers = await Customers.findAll()
       result.data = customers;
-      result.message = "Customers retreives succesfully"
-      result.success = true
+      result.addMessage('Customers retreives succesfully')
     } catch (error) {
-      result.message = `Error: ${error?.message}`;
+      result.addErrorMessage(`Error: ${error?.message}`)
     }
 
     return result;
@@ -24,15 +23,14 @@ export class CustomersService implements IBaseService<CustomersModel> {
       const customer = await Customers.findOne({where: {id}})
       if(customer){
         result.data = customer;
-        result.message = "Customer retreives succesfully"
-        result.success = true
+        result.addMessage("Customer retreives succesfully")
       }else{
-        result.message = "Customer Not Found"
+        result.addErrorMessage("Customer Not Found")
       }
 
 
     } catch (error) {
-      result.message = `Error: ${error?.message}`;
+      result.addErrorMessage(`Error: ${error?.message}`)
     }
 
     return result;
@@ -50,10 +48,9 @@ export class CustomersService implements IBaseService<CustomersModel> {
       }
       const saved = await Customers.create(customer)
       result.data = saved;
-      result.success = true;
-      result.message = "Customer created succesfully!"
+      result.addMessage("Customer created succesfully!")
     } catch (error) {
-      result.message = `Error: ${error?.message}`;
+      result.addErrorMessage(`Error: ${error?.message}`)
     }
 
     return result;
@@ -65,13 +62,13 @@ export class CustomersService implements IBaseService<CustomersModel> {
       if(customer.success){
         await customer.data.destroy()
         result.data = customer.data;
-        result.message = 'Customer deleted succesfully'
-        result.success = true
+        result.addMessage('Customer deleted succesfully')
+
       }else{
-        result.message = customer.message;
+        result.addErrorMessage(customer.message)
       }
     } catch (error) {
-      result.message = `Error: ${error?.message}`;
+      result.addErrorMessage( `Error: ${error?.message}`);
     }
 
     return result;
@@ -82,14 +79,13 @@ export class CustomersService implements IBaseService<CustomersModel> {
       let customer = await this.GetOne(id)
       if(customer.success){
         let customerUpdated = await customer.data.update(entity)
-        result.success = true
         result.data = customerUpdated
-        result.message = 'Customer updated succesfully'
+        result.addMessage('Customer updated succesfully')
       }else{
-        result.message = customer.message
+        result.addErrorMessage( customer.message);
       }
     } catch (error) {
-      result.message = `Error: ${error?.message}`;
+      result.addErrorMessage(`Error: ${error?.message}`);
     }
 
     return result;

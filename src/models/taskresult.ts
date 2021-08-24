@@ -1,12 +1,32 @@
 
 
-export class TaskResult<T> {
-  success: boolean;
-  message: string;
-  data: T;
+class TaskResultBase{
+  public success: boolean
+  public message: string;
+
   constructor(){
-    this.success = false;
     this.message = '';
-    this.data = null;
+    this.success = true;
   }
+
+
+  addMessage(message: string):void{
+    if(this.message.length > 0)
+      this.message = `${this.message}, ${message}`
+    else
+      this.message = message;
+  }
+
+  addErrorMessage(message: string): void {
+    if(this.message.length > 0)
+      this.message = `${this.message}, ${message}`
+    else
+      this.message = message;
+
+    this.success = false;
+  }
+}
+
+export default class TaskResult<T> extends TaskResultBase{
+  public data: T;
 }

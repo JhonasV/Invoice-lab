@@ -4,7 +4,7 @@ import { customersRules } from "../rules/customers.rules";
 import {Request, Response} from 'express'
 import { CustomersService } from "../services/customers.service";
 import {CustomersModel} from '../models/customers'
-import { TaskResult } from "../models/taskresult";
+import TaskResult from "../models/taskresult";
 
 
 export const customerRouter = Router()
@@ -15,10 +15,8 @@ customerRouter.get('/all', async (req: Request, res: Response) => res.json(await
 customerRouter.post('/create', customersRules['forSave'], async (req: Request, res: Response) => {
     const errors = validationResult(req)
 
-    if(!errors.isEmpty()){
-      let result: TaskResult<any[]> = {data: errors.array(), success: false, message: 'Validation Error'}
-      return res.status(422).json(result)
-    }
+    if(!errors.isEmpty())
+      return res.status(422).json(new TaskResult<any[]>().addErrorMessage('Validation Errors'))
 
     res.json(await customersService.Save(matchedData(req) as CustomersModel))
 })
@@ -30,10 +28,9 @@ customerRouter.delete('/:customerId', async (req: Request, res: Response) => res
 customerRouter.put('/:customerId', customersRules['forSave'], async (req: Request, res: Response) => {
   const errors = validationResult(req)
 
-  if(!errors.isEmpty()){
-    let result: TaskResult<any[]> = {data: errors.array(), success: false, message: 'Validation Error'}
-    return res.status(422).json(result)
-  }
+  if(!errors.isEmpty())
+    return res.status(422).json(new TaskResult<any[]>().addErrorMessage('Validation Errors'))
+
 
   res.json(await customersService.Update(Number(req.params.customerId), matchedData(req) as CustomersModel))
 })
