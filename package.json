@@ -36,7 +36,8 @@
     "build": "tsc",
     "client": "npm start --prefix client",
     "server": "nodemon dist/index.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node dist/index.js"
   },
   "author": "nelson veras",
   "license": "ISC"
