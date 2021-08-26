@@ -8,8 +8,8 @@ class Server {
   app: express.Application
   constructor(){
     this.app =  express()
-    routers(this.app)
     this.middlewares()
+    routers(this.app)
     this.init()
   }
 
